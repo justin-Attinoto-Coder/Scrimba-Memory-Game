@@ -1,0 +1,12 @@
+{
+  "name": "scrimba-memory-game",
+  "version": "1.0.0",
+  "description": "A scrimba led course introducing concepts for creating a memory game",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"No tests specified\""
+  },
+  "keywords": ["memory-game", "react", "scrimba"],
+  "author": "",
+  "license": "ISC"
+}
