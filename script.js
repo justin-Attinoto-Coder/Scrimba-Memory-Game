@@ -45,9 +45,9 @@ function initGame() {
     updateStats();
     
     // Create card pairs
-    cards = [...gradients, ...gradients].map((gradient, index) => ({
+    cards = [...gradients, ...gradients].map((gradientData, index) => ({
         id: index,
-        gradient: gradient,
+        gradientData: gradientData,
         matched: false
     }));
     
@@ -91,8 +91,8 @@ function createCardElement(card, index) {
             <div class="card-front">
                 <span class="text-4xl">❓</span>
             </div>
-            <div class="card-back" style="background: ${card.gradient.gradient};">
-                <span class="text-4xl">${card.gradient.emoji}</span>
+            <div class="card-back" style="background: ${card.gradientData.gradient};">
+                <span class="text-4xl">${card.gradientData.emoji}</span>
             </div>
         </div>
     `;
@@ -139,7 +139,7 @@ function handleCardClick(index) {
 function checkMatch() {
     const [first, second] = flippedCards;
     
-    if (first.card.gradient.name === second.card.gradient.name) {
+    if (first.card.gradientData.name === second.card.gradientData.name) {
         // Match found!
         setTimeout(() => {
             first.card.matched = true;
