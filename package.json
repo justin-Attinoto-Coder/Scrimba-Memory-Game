@@ -1,7 +1,7 @@
 {
   "name": "scrimba-memory-game",
   "version": "1.0.0",
-  "description": "A scrimba led course introducing concepts for creating a memory game from Ajo Borgvold",
+  "description": "A Scrimba-led course introducing concepts for creating a memory game from Ajo Borgvold",
   "type": "module",
   "scripts": {
     "dev": "vite",
