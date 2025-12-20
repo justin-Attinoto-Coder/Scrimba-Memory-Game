@@ -11,14 +11,14 @@ let seconds = 0;
 
 // Card gradient patterns (8 unique gradients, each will be used twice)
 const gradients = [
-    { name: 'Sunset', classes: 'bg-gradient-to-br from-orange-400 to-pink-600', emoji: '🌅' },
-    { name: 'Ocean', classes: 'bg-gradient-to-br from-cyan-400 to-blue-600', emoji: '🌊' },
-    { name: 'Forest', classes: 'bg-gradient-to-br from-green-400 to-emerald-600', emoji: '🌲' },
-    { name: 'Fire', classes: 'bg-gradient-to-br from-red-400 to-orange-600', emoji: '🔥' },
-    { name: 'Galaxy', classes: 'bg-gradient-to-br from-purple-400 to-pink-600', emoji: '🌌' },
-    { name: 'Lemon', classes: 'bg-gradient-to-br from-yellow-400 to-orange-500', emoji: '🍋' },
-    { name: 'Berry', classes: 'bg-gradient-to-br from-pink-400 to-rose-600', emoji: '🍓' },
-    { name: 'Mint', classes: 'bg-gradient-to-br from-teal-400 to-cyan-600', emoji: '🍃' }
+    { name: 'Sunset', gradient: 'linear-gradient(to bottom right, #fb923c, #db2777)', emoji: '🌅' },
+    { name: 'Ocean', gradient: 'linear-gradient(to bottom right, #22d3ee, #2563eb)', emoji: '🌊' },
+    { name: 'Forest', gradient: 'linear-gradient(to bottom right, #4ade80, #059669)', emoji: '🌲' },
+    { name: 'Fire', gradient: 'linear-gradient(to bottom right, #f87171, #ea580c)', emoji: '🔥' },
+    { name: 'Galaxy', gradient: 'linear-gradient(to bottom right, #c084fc, #db2777)', emoji: '🌌' },
+    { name: 'Lemon', gradient: 'linear-gradient(to bottom right, #facc15, #f97316)', emoji: '🍋' },
+    { name: 'Berry', gradient: 'linear-gradient(to bottom right, #f9a8d4, #e11d48)', emoji: '🍓' },
+    { name: 'Mint', gradient: 'linear-gradient(to bottom right, #2dd4bf, #06b6d4)', emoji: '🍃' }
 ];
 
 // Initialize the game
@@ -83,10 +83,10 @@ function createCardElement(card, index) {
     
     cardDiv.innerHTML = `
         <div class="card-inner h-full">
-            <div class="card-front bg-gradient-to-br from-indigo-600 to-purple-700 shadow-lg">
+            <div class="card-front" style="background: linear-gradient(to bottom right, #6366f1, #7c3aed); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
                 <span class="text-4xl">❓</span>
             </div>
-            <div class="card-back ${card.gradient.classes} shadow-lg">
+            <div class="card-back" style="background: ${card.gradient.gradient}; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
                 <span class="text-4xl">${card.gradient.emoji}</span>
             </div>
         </div>
