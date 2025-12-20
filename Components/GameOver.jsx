@@ -5,7 +5,7 @@ export default function GameOver({ handleClick }) {
     const divRef = useRef(null)
     
     useEffect(() => {
-        divRef.current.focus()
+        divRef.current?.focus()
     }, [])
     
     return (
