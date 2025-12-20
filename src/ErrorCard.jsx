@@ -5,7 +5,9 @@ export default function ErrorCard({ handleClick }) {
     const divRef = useRef(null)
     
     useEffect(() => {
-        divRef.current.focus()
+        if (divRef.current) {
+            divRef.current.focus()
+        }
     }, [])
     
     return (
