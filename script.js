@@ -78,7 +78,7 @@ function renderCards() {
 // Create a card element
 function createCardElement(card, index) {
     const cardDiv = document.createElement('div');
-    cardDiv.className = 'card aspect-square';
+    cardDiv.className = 'card';
     cardDiv.dataset.index = index;
     
     cardDiv.innerHTML = `
