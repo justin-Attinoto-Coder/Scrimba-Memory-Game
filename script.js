@@ -1,5 +1,10 @@
 // Memory Game Logic
 
+// Constants
+const MATCH_ANIMATION_DELAY = 500; // ms
+const FLIP_BACK_DELAY = 1000; // ms
+const WIN_DELAY = 500; // ms
+
 // Game state
 let cards = [];
 let flippedCards = [];
@@ -83,10 +88,10 @@ function createCardElement(card, index) {
     
     cardDiv.innerHTML = `
         <div class="card-inner h-full">
-            <div class="card-front" style="background: linear-gradient(to bottom right, #6366f1, #7c3aed); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <div class="card-front">
                 <span class="text-4xl">❓</span>
             </div>
-            <div class="card-back" style="background: ${card.gradient.gradient}; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+            <div class="card-back" style="background: ${card.gradient.gradient};">
                 <span class="text-4xl">${card.gradient.emoji}</span>
             </div>
         </div>
@@ -149,16 +154,16 @@ function checkMatch() {
             if (matchedPairs === gradients.length) {
                 setTimeout(() => {
                     winGame();
-                }, 500);
+                }, WIN_DELAY);
             }
-        }, 500);
+        }, MATCH_ANIMATION_DELAY);
     } else {
         // No match - flip cards back
         setTimeout(() => {
             first.element.classList.remove('flipped');
             second.element.classList.remove('flipped');
             flippedCards = [];
-        }, 1000);
+        }, FLIP_BACK_DELAY);
     }
 }
 
