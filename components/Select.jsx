@@ -9,7 +9,9 @@ export default function Select({ handleChange }) {
                 name={key}
                 id={key}
                 onChange={handleChange}
+                defaultValue=""
             >
+                <option value="" disabled>Choose {key}</option>
                 <Option valueArray={value} />
             </select>
         </div>
