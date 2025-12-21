@@ -7,7 +7,7 @@ import ErrorCard from './components/ErrorCard'
 
 export default function App() {
     const initialFormData = {category: "animals-and-nature", number: 10}
-    
+   
     const [isFirstRender, setIsFirstRender] = useState(true)
     const [formData, setFormData] = useState(initialFormData)
     const [isGameOn, setIsGameOn] = useState(false)
@@ -16,105 +16,92 @@ export default function App() {
     const [matchedCards, setMatchedCards] = useState([])
     const [areAllCardsMatched, setAreAllCardsMatched] = useState(false)
     const [isError, setIsError] = useState(false)
-    
+   
     useEffect(() => {
         if (selectedCards.length === 2 && selectedCards[0].name === selectedCards[1].name) {
-            setMatchedCards(prevMatchedCards => [...prevMatchedCards, ...selectedCards])
+            setMatchedCards(prev => [...prev, ...selectedCards])
         }
     }, [selectedCards])
-    
+   
     useEffect(() => {
         if (emojisData.length && matchedCards.length === emojisData.length) {
             setAreAllCardsMatched(true)
         }
     }, [matchedCards, emojisData])
-    
+   
     function handleFormChange(e) {
-        setFormData(prevFormData => ({...prevFormData, [e.target.name]: e.target.value}))
+        setFormData(prev => ({...prev, [e.target.name]: e.target.value}))
     }
-    
+   
     async function startGame(e) {
         e.preventDefault()
-        
+       
         try {
             const response = await fetch(`https://emojihub.yurace.pro/api/all/category/${formData.category}`)
-            
-            if (!response.ok) {
-                throw new Error("Could not fetch data from API")
-            }
-            
+           
+            if (!response.ok) throw new Error("Could not fetch data from API")
+           
             const data = await response.json()
-            const dataSlice = await getDataSlice(data)
-            const emojisArray = await getEmojisArray(dataSlice)
-            
+            const dataSlice = getDataSlice(data)
+            const emojisArray = getEmojisArray(dataSlice)
+           
             setEmojisData(emojisArray)
             setIsGameOn(true)
         } catch(err) {
             console.error(err)
             setIsError(true)
         } finally {
-            setIsFirstRender(false)            
+            setIsFirstRender(false)
         }
     }
 
-    async function getDataSlice(data) {
+    function getDataSlice(data) {
         const randomIndices = getRandomIndices(data)
-        
-        const dataSlice = randomIndices.reduce((array, index) => {
-            array.push(data[index])
-            return array
+        return randomIndices.reduce((arr, idx) => {
+            arr.push(data[idx])
+            return arr
         }, [])
-
-        return dataSlice
     }
 
-    function getRandomIndices(data) {        
-        const randomIndicesArray = []
- 
-        for (let i = 0; i < (formData.number / 2); i++) {
-            const randomNum = Math.floor(Math.random() * data.length)
-            if (!randomIndicesArray.includes(randomNum)) {
-                randomIndicesArray.push(randomNum)
-            } else {
-                i--
-            }
+    function getRandomIndices(data) {
+        const arr = []
+        for (let i = 0; i < formData.number / 2; i++) {
+            let rand
+            do { rand = Math.floor(Math.random() * data.length) }
+            while (arr.includes(rand))
+            arr.push(rand)
         }
-        
-        return randomIndicesArray
+        return arr
     }
 
-    async function getEmojisArray(data) {
-        const pairedEmojisArray = [...data, ...data]
-        
-        for (let i = pairedEmojisArray.length - 1; i > 0; i--) {
+    function getEmojisArray(data) {
+        const paired = [...data, ...data]
+        for (let i = paired.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1))
-            const temp = pairedEmojisArray[i]
-            pairedEmojisArray[i] = pairedEmojisArray[j]
-            pairedEmojisArray[j] = temp
+            [paired[i], paired[j]] = [paired[j], paired[i]]
         }
-        
-        return pairedEmojisArray
+        return paired
     }
-    
+   
     function turnCard(name, index) {
-        if (selectedCards.length < 2) {
-            setSelectedCards(prevSelectedCards => [...prevSelectedCards, { name, index }])
-        } else if (selectedCards.length === 2) {
-            setSelectedCards([{ name, index }])
-        }
+        setSelectedCards(prev => {
+            if (prev.length >= 2) return [{name, index}]
+            if (prev.some(c => c.index === index)) return prev
+            return [...prev, {name, index}]
+        })
     }
-    
+   
     function resetGame() {
         setIsGameOn(false)
         setSelectedCards([])
         setMatchedCards([])
         setAreAllCardsMatched(false)
     }
-    
+   
     function resetError() {
         setIsError(false)
     }
-    
+   
     return (
         <main>
             <h1>Memory</h1>
