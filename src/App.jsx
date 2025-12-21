@@ -27,10 +27,16 @@ export default function App() {
             if (selectedCards[0].name === selectedCards[1].name) {
                 setMatchedCards(prev => [...prev, ...selectedCards])
                 setFeedback('✨ Perfect Match! ✨')
-                setTimeout(() => setFeedback(''), 1500)
+                setTimeout(() => {
+                    setFeedback('')
+                    setSelectedCards([])
+                }, 1500)
             } else {
                 setFeedback('❌ Try Again! ❌')
-                setTimeout(() => setFeedback(''), 1500)
+                setTimeout(() => {
+                    setFeedback('')
+                    setSelectedCards([])
+                }, 1500)
             }
         }
     }, [selectedCards])
