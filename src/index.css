@@ -8,12 +8,13 @@ body {
   font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+  background: linear-gradient(135deg, #ff6b9d 0%, #4ecdc4 25%, #45b7d1 50%, #f9ca24 75%, #eb4d4b 100%);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
   min-height: 100vh;
   overflow-x: hidden;
   font-size: clamp(14px, 2.5vw, 18px);
+  color: #2d3748; /* Dark gray for better contrast */
 }
 
 @keyframes gradientShift {
@@ -80,12 +81,12 @@ h1 {
   margin-bottom: clamp(1rem, 3vw, 2rem);
   font-size: clamp(2rem, 8vw, 4rem);
   font-weight: bold;
-  color: white;
+  color: #ffffff; /* Pure white for maximum contrast */
   text-shadow: 
-    0 0 10px rgba(255, 255, 255, 0.8),
-    0 0 20px rgba(255, 105, 180, 0.6),
-    0 0 30px rgba(255, 105, 180, 0.4),
-    3px 3px 6px rgba(0, 0, 0, 0.3);
+    0 0 10px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 0, 0, 0.6),
+    0 0 30px rgba(0, 0, 0, 0.4),
+    3px 3px 6px rgba(0, 0, 0, 0.5);
   animation: titleBounce 2s ease-in-out infinite, titleGlow 1.5s ease-in-out infinite alternate;
   letter-spacing: 0.1em;
   will-change: transform, filter;
@@ -103,16 +104,16 @@ h1 {
 
 /* Form Styling */
 form {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(15px);
   border-radius: clamp(15px, 5vw, 25px);
   padding: clamp(1.5rem, 5vw, 2.5rem);
   box-shadow: 
-    0 10px 40px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+    0 10px 40px rgba(0, 0, 0, 0.15),
+    0 0 0 1px rgba(0, 0, 0, 0.1) inset;
   margin: 0 auto clamp(1rem, 3vw, 2rem);
   max-width: min(90vw, 500px);
-  border: 3px solid rgba(255, 255, 255, 0.7);
+  border: 4px solid rgba(255, 105, 180, 0.8);
   animation: formFloat 3s ease-in-out infinite;
 }
 
@@ -128,23 +129,35 @@ form > div {
 label {
   font-weight: 700;
   font-size: clamp(1rem, 3vw, 1.2rem);
-  color: #5a3e85;
+  color: #2d3748; /* Dark gray for high contrast */
   display: block;
   margin-bottom: 0.5rem;
-  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+  text-shadow: none; /* Remove text shadow for better readability */
 }
 
 select {
   width: 100%;
   padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
   font-size: clamp(1rem, 2.5vw, 1.1rem);
-  border: 3px solid #667eea;
+  border: 3px solid #ff6b9d; /* Bright pink border */
   border-radius: 15px;
   background: linear-gradient(to right, #fff, #f8f9ff);
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 600;
-  color: #5a3e85;
+  color: #2d3748; /* Dark text for contrast */
+}
+
+select:hover {
+  border-color: #4ecdc4; /* Teal hover */
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+}
+
+select:focus {
+  outline: none;
+  border-color: #45b7d1; /* Blue focus */
+  box-shadow: 0 0 0 4px rgba(69, 183, 209, 0.2);
 }
 
 select:hover {
@@ -164,14 +177,14 @@ button {
   padding: clamp(0.75rem, 2vw, 1rem);
   font-size: clamp(1rem, 3vw, 1.3rem);
   font-weight: bold;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #ff6b9d 0%, #eb4d4b 100%); /* Red-pink gradient */
+  color: #ffffff; /* White text for contrast */
   border: none;
   border-radius: 20px;
   cursor: pointer;
   margin-top: 1rem;
   transition: all 0.3s ease;
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   position: relative;
@@ -198,8 +211,8 @@ button:hover::before {
 
 button:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.6);
+  background: linear-gradient(135deg, #eb4d4b 0%, #ff6b9d 100%);
 }
 
 button:active {
@@ -279,8 +292,8 @@ button:active {
 }
 
 .card-front {
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
+  background: linear-gradient(135deg, #ff6b9d 0%, #eb4d4b 100%); /* Red-pink */
+  color: #ffffff; /* White text */
   font-weight: bold;
   font-size: clamp(2.5rem, 8vw, 4rem);
   animation: cardPulse 2s ease-in-out infinite;
@@ -317,9 +330,9 @@ button:active {
 }
 
 .card-back {
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  background: linear-gradient(135deg, #f9ca24 0%, #f0932b 100%); /* Yellow-orange */
   transform: rotateY(180deg);
-  border: 4px solid #ff6b9d;
+  border: 4px solid #eb4d4b; /* Red border */
   animation: matchGlow 0.6s ease-in-out;
   display: flex;
   align-items: center;
@@ -352,8 +365,8 @@ button:active {
 
 /* Matched cards special effect */
 .memory-card:disabled.flipped .card-back {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-  border-color: #4facfe;
+  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); /* Teal-green */
+  border-color: #2d3748; /* Dark border */
   animation: matchedPulse 1s ease-in-out infinite;
   will-change: transform;
 }
@@ -376,16 +389,16 @@ button:active {
 /* Game Over Styling */
 .game-over {
   text-align: center;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(15px);
   border-radius: clamp(20px, 5vw, 30px);
   padding: clamp(2rem, 6vw, 3rem);
   max-width: min(90vw, 600px);
   margin: clamp(1rem, 3vw, 2rem) auto;
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.3),
-    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-  border: 4px solid rgba(255, 255, 255, 0.7);
+    0 20px 60px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(0, 0, 0, 0.1) inset;
+  border: 4px solid rgba(255, 107, 157, 0.8);
   animation: gameOverBounce 0.6s ease-out, gameOverFloat 3s ease-in-out infinite 0.6s;
 }
 
@@ -402,7 +415,7 @@ button:active {
 
 .game-over h2 {
   font-size: clamp(2rem, 6vw, 3rem);
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  background: linear-gradient(135deg, #ff6b9d 0%, #eb4d4b 50%, #f9ca24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -418,9 +431,58 @@ button:active {
 
 .game-over p {
   font-size: clamp(1rem, 3vw, 1.5rem);
-  color: #5a3e85;
+  color: #2d3748; /* Dark gray for contrast */
   margin-bottom: clamp(1rem, 3vw, 2rem);
   font-weight: 600;
+}
+
+/* Game Over Buttons */
+.game-over-buttons {
+  display: flex;
+  gap: clamp(1rem, 3vw, 1.5rem);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: clamp(1.5rem, 4vw, 2rem);
+}
+
+.game-over-buttons button {
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1.5rem, 4vw, 2rem);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  font-weight: bold;
+  border: none;
+  border-radius: clamp(15px, 4vw, 20px);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  min-width: clamp(120px, 25vw, 160px);
+}
+
+.play-again-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.play-again-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.back-to-menu-btn {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+}
+
+.back-to-menu-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+}
+
+.game-over-buttons button:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* Score Display */
@@ -433,15 +495,15 @@ button:active {
 }
 
 .score-item {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, #45b7d1 0%, #4ecdc4 100%); /* Blue-teal */
+  color: #ffffff; /* White text */
   padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem);
   border-radius: clamp(12px, 3vw, 20px);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(69, 183, 209, 0.4);
   font-size: clamp(0.9rem, 2.5vw, 1.2rem);
   font-weight: bold;
   animation: scorePopIn 0.5s ease-out;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.8);
 }
 
 @keyframes scorePopIn {
@@ -461,21 +523,21 @@ button:active {
 .feedback-message {
   font-size: clamp(1.2rem, 4vw, 2rem);
   font-weight: bold;
-  color: white;
+  color: #ffffff; /* White text */
   text-shadow: 
-    0 0 10px rgba(255, 255, 255, 0.8),
-    0 0 20px rgba(255, 105, 180, 0.6),
-    2px 2px 4px rgba(0, 0, 0, 0.3);
+    0 0 10px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 0, 0, 0.6),
+    2px 2px 4px rgba(0, 0, 0, 0.5);
   animation: feedbackPop 0.5s ease-out, feedbackPulse 0.5s ease-in-out infinite 0.5s;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
-  background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+  background: linear-gradient(135deg, rgba(235, 77, 75, 0.95) 0%, rgba(255, 107, 157, 0.95) 100%);
   padding: clamp(1rem, 4vw, 2rem) clamp(2rem, 5vw, 3rem);
   border-radius: clamp(15px, 4vw, 25px);
-  border: 4px solid white;
+  border: 4px solid #ffffff;
   pointer-events: none;
 }
 
@@ -496,13 +558,34 @@ button:active {
   width: 10px;
   height: 10px;
   background: #f093fb;
-  position: absolute;
-  animation: confettiFall 3s linear infinite;
+  pointer-events: none;
+  z-index: 1000;
+  animation: confettiFall 4s ease-out forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes confettiFall {
-  0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  0% {
+    transform: translateY(-10vh) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  10% {
+    transform: translateY(10vh) rotate(36deg) scale(1.1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(110vh) rotate(720deg) scale(0.3);
+    opacity: 0;
+  }
 }
 
 /* Sparkle Effect */

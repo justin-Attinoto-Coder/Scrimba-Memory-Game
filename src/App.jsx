@@ -154,7 +154,7 @@ export default function App() {
                     {feedback && <div className="feedback-message">{feedback}</div>}
                 </div>
             }
-            {areAllCardsMatched && <GameOver handleClick={resetGame} moves={moves} time={Math.floor((endTime - startTime) / 1000)} />}
+            {areAllCardsMatched && <GameOver handleClick={resetGame} onBackToMenu={resetGame} moves={moves} time={Math.floor((endTime - startTime) / 1000)} />}
             {isGameOn &&
                 <MemoryCard
                     handleClick={turnCard}
