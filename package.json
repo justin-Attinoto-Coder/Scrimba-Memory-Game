@@ -1,12 +1,27 @@
 {
   "name": "scrimba-memory-game",
   "version": "1.0.0",
-  "description": "A scrimba led course introducing concepts for creating a memory game",
+  "description": "A Scrimba-led course introducing concepts for creating a memory game",
+  "private": true,
   "type": "module",
   "scripts": {
-    "test": "echo \"No tests specified\""
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": ["memory-game", "react", "scrimba"],
+  "keywords": [
+    "memory-game",
+    "react",
+    "scrimba"
+  ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.0.0"
+  }
 }
