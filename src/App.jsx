@@ -55,6 +55,8 @@ export default function App() {
             if (!response.ok) throw new Error("Could not fetch data from API")
           
             const data = await response.json()
+            console.log('API Response sample:', data[0]) // Debug: check data structure
+            console.log('Full first emoji:', JSON.stringify(data[0], null, 2)) // See complete structure
             const dataSlice = getDataSlice(data)
             const emojisArray = getEmojisArray(dataSlice)
           
