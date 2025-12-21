@@ -1,29 +1,27 @@
 {
   "name": "scrimba-memory-game",
   "version": "1.0.0",
+  "description": "A Scrimba-led course introducing concepts for creating a memory game",
+  "private": true,
   "type": "module",
-  "description": "A scrimba led course introducing concepts for creating a memory game from Ajo Borgvold",
-  "main": "index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint Components/**/*.{js,jsx}"
+    "preview": "vite preview"
   },
-  "keywords": [],
+  "keywords": [
+    "memory-game",
+    "react",
+    "scrimba"
+  ],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "@vitejs/plugin-react": "^5.1.2",
-    "eslint": "^9.39.2",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "vite": "^7.3.0"
-  },
   "dependencies": {
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.0.0"
   }
 }
