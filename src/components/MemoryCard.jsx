@@ -29,7 +29,7 @@ export default function MemoryCard({ handleClick, data, selectedCards, matchedCa
                 <div className="card-inner">
                     <div className="card-front">?</div>
                     <div className="card-back">
-                        <span style={{border: '2px solid red', display: 'block', width: '100%', height: '100%'}}>{emojiChar}</span>
+                        <span>{emojiChar}</span>
                     </div>
                 </div>
             </button>
