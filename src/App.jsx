@@ -77,7 +77,7 @@ export default function App() {
     function getEmojisArray(data) {
         const paired = [...data, ...data]
         for (let i = paired.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1))
+            const j = Math.floor(Math.random() * (i + 1));
             [paired[i], paired[j]] = [paired[j], paired[i]]
         }
         return paired
