@@ -13,6 +13,7 @@ body {
   animation: gradientShift 15s ease infinite;
   min-height: 100vh;
   overflow-x: hidden;
+  font-size: clamp(14px, 2.5vw, 18px);
 }
 
 @keyframes gradientShift {
@@ -68,16 +69,16 @@ body::after {
 }
 
 main {
-  max-width: 1200px;
+  max-width: min(95vw, 1200px);
   margin: 0 auto;
-  padding: 2rem;
+  padding: clamp(1rem, 4vw, 2rem);
   position: relative;
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 2rem;
-  font-size: 4rem;
+  margin-bottom: clamp(1rem, 3vw, 2rem);
+  font-size: clamp(2rem, 8vw, 4rem);
   font-weight: bold;
   color: white;
   text-shadow: 
@@ -104,13 +105,13 @@ h1 {
 form {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-radius: 25px;
-  padding: 2.5rem;
+  border-radius: clamp(15px, 5vw, 25px);
+  padding: clamp(1.5rem, 5vw, 2.5rem);
   box-shadow: 
     0 10px 40px rgba(0, 0, 0, 0.2),
     0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-  margin: 0 auto 2rem;
-  max-width: 500px;
+  margin: 0 auto clamp(1rem, 3vw, 2rem);
+  max-width: min(90vw, 500px);
   border: 3px solid rgba(255, 255, 255, 0.7);
   animation: formFloat 3s ease-in-out infinite;
 }
@@ -121,12 +122,12 @@ form {
 }
 
 form > div {
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
 }
 
 label {
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 3vw, 1.2rem);
   color: #5a3e85;
   display: block;
   margin-bottom: 0.5rem;
@@ -135,8 +136,8 @@ label {
 
 select {
   width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1.1rem;
+  padding: clamp(0.5rem, 2vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(1rem, 2.5vw, 1.1rem);
   border: 3px solid #667eea;
   border-radius: 15px;
   background: linear-gradient(to right, #fff, #f8f9ff);
@@ -160,8 +161,8 @@ select:focus {
 
 button {
   width: 100%;
-  padding: 1rem;
-  font-size: 1.3rem;
+  padding: clamp(0.75rem, 2vw, 1rem);
+  font-size: clamp(1rem, 3vw, 1.3rem);
   font-weight: bold;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -208,26 +209,26 @@ button:active {
 /* Memory Cards Styling */
 .memory-cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2rem;
-  padding: 1rem;
-  max-width: 900px;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(80px, 15vw, 120px), 1fr));
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  margin-top: clamp(1rem, 3vw, 2rem);
+  padding: clamp(0.5rem, 2vw, 1rem);
+  max-width: min(95vw, 900px);
   margin-left: auto;
   margin-right: auto;
 }
 
 @media (min-width: 768px) {
   .memory-cards-container {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(100px, 12vw, 140px), 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
   }
 }
 
 .memory-card {
   position: relative;
   width: 100%;
-  height: 140px;
+  height: clamp(100px, 20vw, 140px);
   perspective: 1000px;
   background: transparent;
   border: none;
@@ -271,8 +272,8 @@ button:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 20px;
-  font-size: 3.5rem;
+  border-radius: clamp(12px, 3vw, 20px);
+  font-size: clamp(2rem, 6vw, 3.5rem);
   border: 4px solid transparent;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
@@ -281,7 +282,7 @@ button:active {
   background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
   color: white;
   font-weight: bold;
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 8vw, 4rem);
   animation: cardPulse 2s ease-in-out infinite;
   position: relative;
   overflow: hidden;
@@ -326,7 +327,7 @@ button:active {
 }
 
 .card-back span {
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 8vw, 4rem);
   line-height: 1;
   display: flex;
   align-items: center;
@@ -377,10 +378,10 @@ button:active {
   text-align: center;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-radius: 30px;
-  padding: 3rem;
-  max-width: 600px;
-  margin: 2rem auto;
+  border-radius: clamp(20px, 5vw, 30px);
+  padding: clamp(2rem, 6vw, 3rem);
+  max-width: min(90vw, 600px);
+  margin: clamp(1rem, 3vw, 2rem) auto;
   box-shadow: 
     0 20px 60px rgba(0, 0, 0, 0.3),
     0 0 0 1px rgba(255, 255, 255, 0.5) inset;
@@ -400,12 +401,12 @@ button:active {
 }
 
 .game-over h2 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 6vw, 3rem);
   background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 1.5rem;
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
   animation: rainbowText 3s ease infinite;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -416,9 +417,9 @@ button:active {
 }
 
 .game-over p {
-  font-size: 1.5rem;
+  font-size: clamp(1rem, 3vw, 1.5rem);
   color: #5a3e85;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1rem, 3vw, 2rem);
   font-weight: 600;
 }
 
@@ -426,18 +427,18 @@ button:active {
 .score-display {
   display: flex;
   justify-content: center;
-  gap: 2rem;
-  margin: 1.5rem auto;
+  gap: clamp(1rem, 3vw, 2rem);
+  margin: clamp(1rem, 3vw, 1.5rem) auto;
   flex-wrap: wrap;
 }
 
 .score-item {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 20px;
+  padding: clamp(0.75rem, 2vw, 1rem) clamp(1rem, 3vw, 2rem);
+  border-radius: clamp(12px, 3vw, 20px);
   box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem);
   font-weight: bold;
   animation: scorePopIn 0.5s ease-out;
   border: 3px solid rgba(255, 255, 255, 0.3);
@@ -451,14 +452,14 @@ button:active {
 
 .score-item span {
   display: block;
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 4vw, 2rem);
   margin-top: 0.5rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Feedback Message */
 .feedback-message {
-  font-size: 2rem;
+  font-size: clamp(1.2rem, 4vw, 2rem);
   font-weight: bold;
   color: white;
   text-shadow: 
@@ -472,8 +473,8 @@ button:active {
   transform: translate(-50%, -50%);
   z-index: 1000;
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
-  padding: 2rem 3rem;
-  border-radius: 25px;
+  padding: clamp(1rem, 4vw, 2rem) clamp(2rem, 5vw, 3rem);
+  border-radius: clamp(15px, 4vw, 25px);
   border: 4px solid white;
   pointer-events: none;
 }
@@ -528,10 +529,10 @@ button:active {
 .error-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border-radius: 25px;
-  padding: 2.5rem;
-  max-width: 500px;
-  margin: 2rem auto;
+  border-radius: clamp(15px, 4vw, 25px);
+  padding: clamp(1.5rem, 5vw, 2.5rem);
+  max-width: min(90vw, 500px);
+  margin: clamp(1rem, 3vw, 2rem) auto;
   text-align: center;
   box-shadow: 0 10px 40px rgba(255, 0, 0, 0.2);
   border: 3px solid rgba(255, 87, 87, 0.5);
@@ -546,7 +547,7 @@ button:active {
 
 .error-card h2 {
   color: #e74c3c;
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw, 2rem);
   margin-bottom: 1rem;
 }
 
@@ -559,22 +560,132 @@ button:active {
   overflow: hidden;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Comprehensive Responsive Design */
+
+/* Mobile Portrait (up to 480px) */
+@media (max-width: 480px) and (orientation: portrait) {
+  .memory-cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .memory-card {
+    height: 90px;
+  }
+  
+  .card-front,
+  .card-back {
+    font-size: 2rem;
+  }
+  
+  .card-front {
+    font-size: 2.5rem;
+  }
+  
+  .card-back span {
+    font-size: 2.5rem;
+  }
+  
+  .score-display {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .score-item {
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+/* Mobile Landscape (481px to 767px, landscape) */
+@media (min-width: 481px) and (max-width: 767px) and (orientation: landscape) {
+  .memory-cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.75rem;
+  }
+  
+  .memory-card {
+    height: 100px;
+  }
+  
   h1 {
     font-size: 2.5rem;
   }
   
-  .game-over h2 {
-    font-size: 2rem;
+  .score-display {
+    gap: 1rem;
+  }
+}
+
+/* Tablet Portrait (768px to 1023px, portrait) */
+@media (min-width: 768px) and (max-width: 1023px) and (orientation: portrait) {
+  .memory-cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
   }
   
-  .score-item {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+  .memory-card {
+    height: 120px;
+  }
+}
+
+/* Tablet Landscape / Small Desktop (768px to 1199px, landscape or wider) */
+@media (min-width: 768px) and (max-width: 1199px) and (orientation: landscape),
+       (min-width: 1024px) and (max-width: 1199px) {
+  .memory-cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 1.25rem;
   }
   
-  .score-item span {
-    font-size: 1.5rem;
+  .memory-card {
+    height: 130px;
+  }
+}
+
+/* Large Desktop (1200px+) */
+@media (min-width: 1200px) {
+  .memory-cards-container {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 2rem;
+  }
+  
+  .memory-card {
+    height: 140px;
+  }
+  
+  main {
+    max-width: 1400px;
+  }
+}
+
+/* Touch-friendly adjustments for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .memory-card {
+    min-height: 44px; /* iOS touch target minimum */
+  }
+  
+  button {
+    min-height: 44px;
+  }
+  
+  .memory-card:hover:not(:disabled) {
+    transform: none; /* Remove hover effects on touch devices */
+  }
+  
+  .memory-card:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .card-front,
+  .card-back {
+    border-width: 2px;
+  }
+  
+  .memory-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 }
