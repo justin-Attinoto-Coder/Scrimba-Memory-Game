@@ -19,6 +19,7 @@ export default function App() {
     const [moves, setMoves] = useState(0)
     const [startTime, setStartTime] = useState(null)
     const [endTime, setEndTime] = useState(null)
+    const [feedback, setFeedback] = useState('')
   
     useEffect(() => {
         if (selectedCards.length === 2) {
