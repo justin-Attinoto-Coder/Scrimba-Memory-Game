@@ -26,6 +26,11 @@ export default function App() {
             setMoves(prev => prev + 1)
             if (selectedCards[0].name === selectedCards[1].name) {
                 setMatchedCards(prev => [...prev, ...selectedCards])
+                setFeedback('✨ Perfect Match! ✨')
+                setTimeout(() => setFeedback(''), 1500)
+            } else {
+                setFeedback('❌ Try Again! ❌')
+                setTimeout(() => setFeedback(''), 1500)
             }
         }
     }, [selectedCards])
@@ -134,6 +139,7 @@ export default function App() {
                         Moves
                         <span>{moves}</span>
                     </div>
+                    {feedback && <div className="feedback-message">{feedback}</div>}
                 </div>
             }
             {areAllCardsMatched && <GameOver handleClick={resetGame} moves={moves} time={Math.floor((endTime - startTime) / 1000)} />}
