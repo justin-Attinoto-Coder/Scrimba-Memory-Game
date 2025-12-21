@@ -9,16 +9,16 @@ export default function GameOver({ handleClick, moves, time, onBackToMenu }) {
         const colors = ['#ff6b9d', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b', '#6c5ce7', '#a29bfe', '#fd79a8', '#e17055']
         const emojis = ['🎉', '🎊', '✨', '🌟', '💫', '⭐', '🎈', '🎁', '🏆', '👑']
 
-        // Create 200 pieces for better coverage
-        for (let i = 0; i < 200; i++) {
+        // Create 300 pieces for better coverage
+        for (let i = 0; i < 300; i++) {
             pieces.push({
                 id: i,
                 left: Math.random() * 100,
                 top: Math.random() * 100,
-                animationDelay: Math.random() * 2,
+                animationDelay: Math.random() * 10, // Stagger over first 10 seconds
                 backgroundColor: colors[Math.floor(Math.random() * colors.length)],
                 emoji: emojis[Math.floor(Math.random() * emojis.length)],
-                animationDuration: 3 + Math.random() * 3,
+                animationDuration: 50 + Math.random() * 20, // 50-70 seconds duration
                 size: 8 + Math.random() * 12
             })
         }
@@ -49,7 +49,7 @@ export default function GameOver({ handleClick, moves, time, onBackToMenu }) {
                 </div>
             ))}
             <div className="game-over">
-                <h2>🎉 Congratulations! You won! 🎉</h2>
+                <h2>🎉 <span className="congrats-text">Congratulations! You won!</span> 🎉</h2>
                 <p>You matched all the cards!</p>
                 <div className="score-display">
                     <div className="score-item">

@@ -415,13 +415,16 @@ button:active {
 
 .game-over h2 {
   font-size: clamp(2rem, 6vw, 3rem);
+  margin-bottom: clamp(1rem, 3vw, 1.5rem);
+  animation: rainbowText 3s ease infinite;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.congrats-text {
   background: linear-gradient(135deg, #ff6b9d 0%, #eb4d4b 50%, #f9ca24 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: clamp(1rem, 3vw, 1.5rem);
-  animation: rainbowText 3s ease infinite;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes rainbowText {
@@ -582,8 +585,12 @@ button:active {
     transform: translateY(50vh) rotate(180deg) scale(0.8);
     opacity: 0.8;
   }
+  90% {
+    transform: translateY(90vh) rotate(324deg) scale(0.3);
+    opacity: 0.6;
+  }
   100% {
-    transform: translateY(110vh) rotate(720deg) scale(0.3);
+    transform: translateY(110vh) rotate(720deg) scale(0.1);
     opacity: 0;
   }
 }
