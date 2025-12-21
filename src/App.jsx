@@ -7,7 +7,7 @@ import ErrorCard from './components/ErrorCard'
 
 export default function App() {
     const initialFormData = {category: "animals-and-nature", number: 10}
-   
+  
     const [isFirstRender, setIsFirstRender] = useState(true)
     const [formData, setFormData] = useState(initialFormData)
     const [isGameOn, setIsGameOn] = useState(false)
@@ -16,35 +16,35 @@ export default function App() {
     const [matchedCards, setMatchedCards] = useState([])
     const [areAllCardsMatched, setAreAllCardsMatched] = useState(false)
     const [isError, setIsError] = useState(false)
-   
+  
     useEffect(() => {
         if (selectedCards.length === 2 && selectedCards[0].name === selectedCards[1].name) {
             setMatchedCards(prev => [...prev, ...selectedCards])
         }
     }, [selectedCards])
-   
+  
     useEffect(() => {
         if (emojisData.length && matchedCards.length === emojisData.length) {
             setAreAllCardsMatched(true)
         }
     }, [matchedCards, emojisData])
-   
+  
     function handleFormChange(e) {
         setFormData(prev => ({...prev, [e.target.name]: e.target.value}))
     }
-   
+  
     async function startGame(e) {
         e.preventDefault()
-       
+      
         try {
             const response = await fetch(`https://emojihub.yurace.pro/api/all/category/${formData.category}`)
-           
+          
             if (!response.ok) throw new Error("Could not fetch data from API")
-           
+          
             const data = await response.json()
             const dataSlice = getDataSlice(data)
             const emojisArray = getEmojisArray(dataSlice)
-           
+          
             setEmojisData(emojisArray)
             setIsGameOn(true)
         } catch(err) {
@@ -82,7 +82,7 @@ export default function App() {
         }
         return paired
     }
-   
+  
     function turnCard(name, index) {
         setSelectedCards(prev => {
             if (prev.length >= 2) return [{name, index}]
@@ -90,18 +90,18 @@ export default function App() {
             return [...prev, {name, index}]
         })
     }
-   
+  
     function resetGame() {
         setIsGameOn(false)
         setSelectedCards([])
         setMatchedCards([])
         setAreAllCardsMatched(false)
     }
-   
+  
     function resetError() {
         setIsError(false)
     }
-   
+  
     return (
         <main>
             <h1>Memory</h1>
