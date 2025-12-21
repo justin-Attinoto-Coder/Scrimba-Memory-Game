@@ -139,6 +139,10 @@ export default function App() {
                         Moves
                         <span>{moves}</span>
                     </div>
+                    <div className="score-item">
+                        Matched
+                        <span>{matchedCards.length / 2} / {emojisData.length / 2}</span>
+                    </div>
                     {feedback && <div className="feedback-message">{feedback}</div>}
                 </div>
             }
