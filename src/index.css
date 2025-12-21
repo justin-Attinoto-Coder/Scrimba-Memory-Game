@@ -234,13 +234,16 @@ button:active {
   transition: transform 0.2s ease;
 }
 
+.memory-card:disabled {
+  cursor: default;
+  opacity: 1;
+  background: transparent;
+  color: inherit;
+}
+
 .memory-card:hover:not(:disabled) {
   transform: translateY(-5px) scale(1.05);
   filter: drop-shadow(0 10px 20px rgba(255, 105, 180, 0.4));
-}
-
-.memory-card:disabled {
-  cursor: default;
 }
 
 .card-inner {
@@ -312,12 +315,17 @@ button:active {
   transform: rotateY(180deg);
   border: 4px solid #ff6b9d;
   animation: matchGlow 0.6s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card-back span {
   font-size: 4rem;
   line-height: 1;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes matchGlow {
