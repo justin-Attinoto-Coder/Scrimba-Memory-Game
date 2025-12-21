@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game - Gradient Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #581c87, #1e3a8a, #3730a3);
+            color: white;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #f9a8d4, #c084fc, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: #e9d5ff;
+        }
+        
+        .stats-container {
+            max-width: 64rem;
+            margin: 0 auto 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .stat-card {
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            color: white;
+        }
+        
+        .stat-card:nth-child(1) {
+            background: linear-gradient(to bottom right, #ec4899, #9333ea);
+        }
+        
+        .stat-card:nth-child(2) {
+            background: linear-gradient(to bottom right, #a855f7, #6366f1);
+        }
+        
+        .stat-card:nth-child(3) {
+            background: linear-gradient(to bottom right, #6366f1, #3b82f6);
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .stat-value {
+            font-size: 1.875rem;
+            font-weight: bold;
+        }
+        
+        .game-board {
+            max-width: 64rem;
+            margin: 0 auto 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        
+        .controls {
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, #ec4899, #a855f7, #6366f1);
+            color: white;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            background: linear-gradient(to right, #db2777, #9333ea, #4f46e5);
+        }
+        
+        .modal {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+        
+        .modal.hidden {
+            display: none;
+        }
+        
+        .modal-content {
+            background: linear-gradient(to bottom right, #6b21a8, #312e81);
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 28rem;
+            margin: 0 1rem;
+            text-align: center;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .modal-title {
+            font-size: 2.25rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #f9a8d4, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .modal-text {
+            color: #e9d5ff;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modal-stats {
+            color: white;
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .game-board {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .card {
+            perspective: 1000px;
+            cursor: pointer;
+            height: 150px;
+        }
+        
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-front {
+            background: linear-gradient(to bottom right, #6366f1, #7c3aed);
+        }
+        
+        .card-back {
+            transform: rotateY(180deg);
+        }
+        
+        .card.matched {
+            animation: matchPulse 0.5s ease-in-out;
+        }
+        
+        @keyframes matchPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="title">Memory Game</h1>
+            <p class="subtitle">Match the gradient pairs!</p>
+        </div>
+        
+        <!-- Game Stats -->
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-label">Moves</div>
+                <div id="moves" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Matches</div>
+                <div id="matches" class="stat-value">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Time</div>
+                <div id="timer" class="stat-value">0:00</div>
+            </div>
+        </div>
+        
+        <!-- Game Board -->
+        <div id="game-board" class="game-board">
+            <!-- Cards will be generated by JavaScript -->
+        </div>
+        
+        <!-- Controls -->
+        <div class="controls">
+            <button id="reset-btn" class="btn">New Game</button>
+        </div>
+        
+        <!-- Win Modal -->
+        <div id="win-modal" class="modal hidden">
+            <div class="modal-content">
+                <h2 class="modal-title">🎉 You Won! 🎉</h2>
+                <p class="modal-text">Congratulations!</p>
+                <p class="modal-stats">
+                    <span id="final-moves"></span> moves in <span id="final-time"></span>
+                </p>
+                <button id="play-again-btn" class="btn">Play Again</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
