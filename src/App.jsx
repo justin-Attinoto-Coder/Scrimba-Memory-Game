@@ -16,16 +16,23 @@ export default function App() {
     const [matchedCards, setMatchedCards] = useState([])
     const [areAllCardsMatched, setAreAllCardsMatched] = useState(false)
     const [isError, setIsError] = useState(false)
+    const [moves, setMoves] = useState(0)
+    const [startTime, setStartTime] = useState(null)
+    const [endTime, setEndTime] = useState(null)
   
     useEffect(() => {
-        if (selectedCards.length === 2 && selectedCards[0].name === selectedCards[1].name) {
-            setMatchedCards(prev => [...prev, ...selectedCards])
+        if (selectedCards.length === 2) {
+            setMoves(prev => prev + 1)
+            if (selectedCards[0].name === selectedCards[1].name) {
+                setMatchedCards(prev => [...prev, ...selectedCards])
+            }
         }
     }, [selectedCards])
   
     useEffect(() => {
         if (emojisData.length && matchedCards.length === emojisData.length) {
             setAreAllCardsMatched(true)
+            setEndTime(Date.now())
         }
     }, [matchedCards, emojisData])
   
@@ -47,6 +54,9 @@ export default function App() {
           
             setEmojisData(emojisArray)
             setIsGameOn(true)
+            setMoves(0)
+            setStartTime(Date.now())
+            setEndTime(null)
         } catch(err) {
             console.error(err)
             setIsError(true)
@@ -96,6 +106,9 @@ export default function App() {
         setSelectedCards([])
         setMatchedCards([])
         setAreAllCardsMatched(false)
+        setMoves(0)
+        setStartTime(null)
+        setEndTime(null)
     }
   
     function resetError() {
@@ -114,7 +127,15 @@ export default function App() {
             }
             {isGameOn && !areAllCardsMatched &&
                 <AssistiveTechInfo emojisData={emojisData} matchedCards={matchedCards} />}
-            {areAllCardsMatched && <GameOver handleClick={resetGame} />}
+            {isGameOn && !areAllCardsMatched && 
+                <div className="score-display">
+                    <div className="score-item">
+                        Moves
+                        <span>{moves}</span>
+                    </div>
+                </div>
+            }
+            {areAllCardsMatched && <GameOver handleClick={resetGame} moves={moves} time={Math.floor((endTime - startTime) / 1000)} />}
             {isGameOn &&
                 <MemoryCard
                     handleClick={turnCard}
