@@ -4,11 +4,11 @@ export default function GameOver({ handleClick, moves, time }) {
     const [confettiPieces, setConfettiPieces] = useState([])
 
     useEffect(() => {
-        // Create confetti pieces
+        // Create confetti pieces (reduced from 50 to 30 for performance)
         const pieces = []
         const colors = ['#f093fb', '#f5576c', '#4facfe', '#00f2fe', '#feca57', '#48dbfb']
         
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 30; i++) {
             pieces.push({
                 id: i,
                 left: Math.random() * 100,

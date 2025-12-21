@@ -10,7 +10,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
   background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  animation: gradientShift 20s ease infinite;
   min-height: 100vh;
   overflow-x: hidden;
 }
@@ -21,48 +21,27 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* Floating Background Particles */
-body::before,
-body::after {
+/* Simplified floating particles - only one now for performance */
+body::before {
   content: '⭐';
   position: fixed;
   font-size: 2rem;
-  opacity: 0.6;
-  animation: floatParticle 10s ease-in-out infinite;
+  opacity: 0.4;
+  animation: floatParticle 15s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
-}
-
-body::before {
   top: 10%;
   left: 10%;
-  animation-delay: 0s;
-}
-
-body::after {
-  content: '✨';
-  top: 70%;
-  right: 15%;
-  animation-delay: 5s;
-  animation-duration: 12s;
 }
 
 @keyframes floatParticle {
   0%, 100% { 
-    transform: translateY(0px) translateX(0px) rotate(0deg);
-    opacity: 0.3;
-  }
-  25% {
-    transform: translateY(-30px) translateX(20px) rotate(90deg);
-    opacity: 0.6;
+    transform: translateY(0px) translateX(0px);
+    opacity: 0.2;
   }
   50% { 
-    transform: translateY(-50px) translateX(-10px) rotate(180deg);
+    transform: translateY(-40px) translateX(30px);
     opacity: 0.4;
-  }
-  75% {
-    transform: translateY(-20px) translateX(-30px) rotate(270deg);
-    opacity: 0.5;
   }
 }
 
@@ -82,21 +61,17 @@ h1 {
   text-shadow: 
     0 0 10px rgba(255, 255, 255, 0.8),
     0 0 20px rgba(255, 105, 180, 0.6),
-    0 0 30px rgba(255, 105, 180, 0.4),
     3px 3px 6px rgba(0, 0, 0, 0.3);
-  animation: titleBounce 2s ease-in-out infinite, titleGlow 1.5s ease-in-out infinite alternate;
+  animation: titleBounce 3s ease-in-out infinite;
   letter-spacing: 0.1em;
 }
 
 @keyframes titleBounce {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-10px) scale(1.05); }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
-@keyframes titleGlow {
-  0% { filter: brightness(1); }
-  100% { filter: brightness(1.3); }
-}
+/* Simplified title glow - removed for performance */
 
 /* Form Styling */
 form {
@@ -280,36 +255,15 @@ button:active {
   color: white;
   font-weight: bold;
   font-size: 4rem;
-  animation: cardPulse 2s ease-in-out infinite;
   position: relative;
   overflow: hidden;
 }
 
-.card-front::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transform: rotate(45deg);
-  animation: cardShine 3s linear infinite;
-}
-
-@keyframes cardShine {
-  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-}
+/* Removed the card shine animation - it was expensive */
 
 @keyframes cardPulse {
-  0%, 100% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
-  50% { box-shadow: 0 8px 25px rgba(240, 147, 251, 0.6), 0 0 30px rgba(245, 87, 108, 0.4); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
 }
 
 .card-back {
@@ -333,7 +287,7 @@ button:active {
 
 @keyframes matchGlow {
   0%, 100% { box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); }
-  50% { box-shadow: 0 0 40px rgba(255, 107, 157, 0.8); }
+  50% { box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4); }
 }
 
 .memory-card.flipped:not(:disabled) .card-back {
@@ -341,27 +295,14 @@ button:active {
 }
 
 @keyframes flipReveal {
-  0% { transform: rotateY(180deg) scale(0.8); }
-  50% { transform: rotateY(180deg) scale(1.1); }
+  0% { transform: rotateY(180deg) scale(0.95); }
   100% { transform: rotateY(180deg) scale(1); }
 }
 
-/* Matched cards special effect */
+/* Simplified matched cards effect */
 .memory-card:disabled.flipped .card-back {
   background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
   border-color: #4facfe;
-  animation: matchedPulse 1s ease-in-out infinite;
-}
-
-@keyframes matchedPulse {
-  0%, 100% { 
-    transform: rotateY(180deg) scale(1);
-    filter: brightness(1);
-  }
-  50% { 
-    transform: rotateY(180deg) scale(1.05);
-    filter: brightness(1.2);
-  }
 }
 
 .memory-card:hover:not(:disabled) .card-front {
