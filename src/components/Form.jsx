@@ -1,6 +1,6 @@
-export default function Form({ handleSubmit, handleChange, isFirstRender }) {
+export default function Form({ handleSubmit, handleChange, isFirstRender, isHidden }) {
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className={isHidden ? 'hidden' : ''}>
             <div>
                 <label htmlFor="category">🎯 Choose a category: </label>
                 <select 

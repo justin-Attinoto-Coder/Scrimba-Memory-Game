@@ -132,11 +132,12 @@ export default function App() {
     return (
         <main>
             <h1>🎮 Memory Game 🎮</h1>
-            {!isGameOn && !isError &&
+            {!isError &&
                 <Form
                     handleSubmit={startGame}
                     handleChange={handleFormChange}
                     isFirstRender={isFirstRender}
+                    isHidden={isGameOn}
                 />
             }
             {isGameOn && !areAllCardsMatched &&
@@ -154,7 +155,6 @@ export default function App() {
                     {feedback && <div className="feedback-message">{feedback}</div>}
                 </div>
             }
-            {areAllCardsMatched && <GameOver handleClick={resetGame} onBackToMenu={resetGame} moves={moves} time={Math.floor((endTime - startTime) / 1000)} />}
             {isGameOn &&
                 <MemoryCard
                     handleClick={turnCard}
@@ -163,6 +163,7 @@ export default function App() {
                     matchedCards={matchedCards}
                 />
             }
+            {areAllCardsMatched && <GameOver handleClick={resetGame} onBackToMenu={resetGame} moves={moves} time={Math.floor((endTime - startTime) / 1000)} />}
             {isError && <ErrorCard handleClick={resetError} />}
         </main>
     )

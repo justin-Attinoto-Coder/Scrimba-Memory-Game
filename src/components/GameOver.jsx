@@ -26,7 +26,7 @@ export default function GameOver({ handleClick, moves, time, onBackToMenu }) {
     }, [])
 
     return (
-        <>
+        <div className="game-over-overlay">
             {confettiPieces.map(piece => (
                 <div
                     key={piece.id}
@@ -66,6 +66,6 @@ export default function GameOver({ handleClick, moves, time, onBackToMenu }) {
                     <button onClick={onBackToMenu} className="back-to-menu-btn">Choose Different Game</button>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
