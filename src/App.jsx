@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import Form from './components/Form'
 import MemoryCard from './components/MemoryCard'
-import AssistiveTechInfo from './components/AssistiveTechInfo'
 import GameOver from './components/GameOver'
 import ErrorCard from './components/ErrorCard'
 
@@ -140,8 +139,6 @@ export default function App() {
                     isHidden={isGameOn}
                 />
             }
-            {isGameOn && !areAllCardsMatched &&
-                <AssistiveTechInfo emojisData={emojisData} matchedCards={matchedCards} />}
             {isGameOn && !areAllCardsMatched && 
                 <div className="score-display">
                     <div className="score-item">
