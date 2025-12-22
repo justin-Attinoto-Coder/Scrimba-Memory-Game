@@ -79,9 +79,17 @@ export default function App() {
     }
 
     function getDataSlice(data) {
-        const randomIndices = getRandomIndices(data)
+        // First, deduplicate the data array based on unicode or htmlCode
+        const uniqueData = data.filter((emoji, index, self) => 
+            index === self.findIndex(e => 
+                (e.unicode && e.unicode === emoji.unicode) || 
+                (e.htmlCode && e.htmlCode === emoji.htmlCode)
+            )
+        )
+        
+        const randomIndices = getRandomIndices(uniqueData)
         return randomIndices.reduce((arr, idx) => {
-            arr.push(data[idx])
+            arr.push(uniqueData[idx])
             return arr
         }, [])
     }
