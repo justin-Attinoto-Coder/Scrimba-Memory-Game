@@ -49,8 +49,7 @@ export default function GameOver({ handleClick, moves, time, onBackToMenu }) {
                 </div>
             ))}
             <div className="game-over">
-                <h2>🎉 <span className="congrats-text">Congratulations! You won!</span> 🎉</h2>
-                <p>You matched all the cards!</p>
+                <h2>🎉 <span className="congrats-text">Congratulations!</span> 🎉</h2>
                 <div className="score-display">
                     <div className="score-item">
                         Moves
