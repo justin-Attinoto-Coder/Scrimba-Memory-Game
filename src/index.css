@@ -267,7 +267,7 @@ button:active {
   width: 100%;
   aspect-ratio: 1 / 1;
   height: auto;
-  max-height: 180px;
+  max-height: 220px;
   perspective: 1000px;
   background: transparent;
   border: none;
@@ -770,7 +770,7 @@ button:active {
   .memory-card {
     aspect-ratio: 1 / 1;
     height: auto;
-    max-height: 145px;
+    max-height: 170px;
   }
 }
 
@@ -785,7 +785,7 @@ button:active {
   .memory-card {
     aspect-ratio: 1 / 1;
     height: auto;
-    max-height: 155px;
+    max-height: 190px;
   }
 }
 
@@ -799,7 +799,7 @@ button:active {
   .memory-card {
     aspect-ratio: 1 / 1;
     height: auto;
-    max-height: 180px;
+    max-height: 220px;
   }
   
   main {
