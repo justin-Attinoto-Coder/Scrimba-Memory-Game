@@ -7,11 +7,26 @@ import ErrorCard from './components/ErrorCard'
 export default function App() {
     const initialFormData = {category: "animals-and-nature", number: 10}
   
+    // Load sound preference from localStorage
+    const [soundEnabled, setSoundEnabled] = useState(() => {
+        const saved = localStorage.getItem('memoryGame_soundEnabled')
+        return saved !== null ? JSON.parse(saved) : true // Default to true
+    })
+    
+    // Load music preference from localStorage
+    const [musicEnabled, setMusicEnabled] = useState(() => {
+        const saved = localStorage.getItem('memoryGame_musicEnabled')
+        return saved !== null ? JSON.parse(saved) : true // Default to true
+    })
+    
+    // Music state
+    const [musicContext, setMusicContext] = useState(null)
+    const [musicOscillator, setMusicOscillator] = useState(null)
+    
     // Sound functions - Super Mario style!
     const playSound = (frequency, duration, type = 'sine', volume = 0.3) => {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-        const oscillator = audioContext.createOscillator()
-        const gainNode = audioContext.createGain()
+        if (!soundEnabled) return // Don't play if sounds are disabled
+        
         
         oscillator.connect(gainNode)
         gainNode.connect(audioContext.destination)
@@ -54,6 +69,84 @@ export default function App() {
         setTimeout(() => playSound(784, 0.2, 'triangle', 0.4), 300) // G
         setTimeout(() => playSound(1047, 0.3, 'triangle', 0.5), 450) // C (high)
         setTimeout(() => playSound(1319, 0.4, 'triangle', 0.6), 600) // E (high)
+    }
+    
+    // Background music functions
+    const startBackgroundMusic = () => {
+        if (!musicEnabled || musicContext) return // Don't start if disabled or already playing
+        
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+        const oscillator = audioContext.createOscillator()
+        const gainNode = audioContext.createGain()
+        
+        oscillator.connect(gainNode)
+        gainNode.connect(audioContext.destination)
+        
+        // Set up a simple chiptune melody
+        oscillator.type = 'square'
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime) // Quiet background music
+        
+        // Create a simple melody pattern
+        const melody = [
+            { freq: 523, duration: 0.4 }, // C
+            { freq: 659, duration: 0.4 }, // E
+            { freq: 784, duration: 0.4 }, // G
+            { freq: 659, duration: 0.4 }, // E
+            { freq: 523, duration: 0.4 }, // C
+            { freq: 440, duration: 0.4 }, // A (lower)
+            { freq: 494, duration: 0.4 }, // B
+            { freq: 523, duration: 0.8 }, // C (longer)
+        ]
+        
+        let currentTime = audioContext.currentTime
+        
+        // Play the melody once, then loop
+        const playMelody = () => {
+            melody.forEach(note => {
+                oscillator.frequency.setValueAtTime(note.freq, currentTime)
+                currentTime += note.duration
+            })
+        }
+        
+        playMelody()
+        
+        // Set up looping
+        oscillator.frequency.setValueAtTime(523, currentTime) // Reset to C
+        
+        setMusicContext(audioContext)
+        setMusicOscillator(oscillator)
+        
+        oscillator.start(audioContext.currentTime)
+    }
+    
+    const stopBackgroundMusic = () => {
+        if (musicOscillator) {
+            musicOscillator.stop()
+            setMusicOscillator(null)
+        }
+        if (musicContext) {
+            musicContext.close()
+            setMusicContext(null)
+        }
+    }
+    
+    // Toggle functions
+    const toggleSound = () => {
+        const newSoundEnabled = !soundEnabled
+        setSoundEnabled(newSoundEnabled)
+        localStorage.setItem('memoryGame_soundEnabled', JSON.stringify(newSoundEnabled))
+    }
+    
+    const toggleMusic = () => {
+        const newMusicEnabled = !musicEnabled
+        setMusicEnabled(newMusicEnabled)
+        localStorage.setItem('memoryGame_musicEnabled', JSON.stringify(newMusicEnabled))
+        
+        if (!newMusicEnabled) {
+            stopBackgroundMusic()
+        } else if (isGameOn) {
+            startBackgroundMusic()
+        }
     }
   
     const [isFirstRender, setIsFirstRender] = useState(true)
@@ -122,6 +215,7 @@ export default function App() {
             setMoves(0)
             setStartTime(Date.now())
             setEndTime(null)
+            startBackgroundMusic()
         } catch(err) {
             console.error(err)
             setIsError(true)
@@ -198,6 +292,8 @@ export default function App() {
                     handleChange={handleFormChange}
                     isFirstRender={isFirstRender}
                     isHidden={isGameOn}
+                    soundEnabled={soundEnabled}
+                    toggleSound={toggleSound}
                 />
             }
             {isGameOn && !areAllCardsMatched && 

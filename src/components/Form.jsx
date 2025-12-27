@@ -1,4 +1,4 @@
-export default function Form({ handleSubmit, handleChange, isFirstRender, isHidden }) {
+export default function Form({ handleSubmit, handleChange, isFirstRender, isHidden, soundEnabled, toggleSound }) {
     return (
         <form onSubmit={handleSubmit} className={isHidden ? 'hidden' : ''}>
             <div>
@@ -35,6 +35,20 @@ export default function Form({ handleSubmit, handleChange, isFirstRender, isHidd
                     <option value="18">18 cards</option>
                     <option value="20">20 cards (Hard)</option>
                 </select>
+            </div>
+            <div className="sound-toggle">
+                <label htmlFor="sound-toggle" className="sound-label">
+                    🔊 Sound Effects: 
+                </label>
+                <button 
+                    type="button"
+                    id="sound-toggle"
+                    onClick={toggleSound}
+                    className={`sound-button ${soundEnabled ? 'sound-on' : 'sound-off'}`}
+                    aria-label={soundEnabled ? 'Disable sound effects' : 'Enable sound effects'}
+                >
+                    {soundEnabled ? '🔊 ON' : '🔇 OFF'}
+                </button>
             </div>
             <button type="submit">
                 {isFirstRender ? "🚀 Start Game" : "🎮 New Game"}
