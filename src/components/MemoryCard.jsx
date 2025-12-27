@@ -27,7 +27,7 @@ export default function MemoryCard({ handleClick, data, selectedCards, matchedCa
                 aria-label={isFlipped ? emoji.name : 'Hidden card'}
             >
                 <div className="card-inner">
-                    <div className="card-front">?</div>
+                    <div className="card-front">🌟</div>
                     <div className="card-back">
                         <span>{emojiChar}</span>
                     </div>
