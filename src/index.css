@@ -267,7 +267,7 @@ button:active {
   width: 100%;
   aspect-ratio: 1 / 1;
   height: auto;
-  max-height: 160px;
+  max-height: 180px;
   perspective: 1000px;
   background: transparent;
   border: none;
@@ -711,7 +711,7 @@ button:active {
   .memory-card {
     aspect-ratio: 1 / 1;
     height: auto;
-    max-height: 100px;
+    max-height: 115px;
   }
   
   .card-front,
@@ -748,7 +748,7 @@ button:active {
   .memory-card {
     aspect-ratio: 1 / 1;
     height: auto;
-    max-height: 110px;
+    max-height: 125px;
   }
   
   h1 {
@@ -770,7 +770,7 @@ button:active {
   .memory-card {
     aspect-ratio: 1 / 1;
     height: auto;
-    max-height: 130px;
+    max-height: 145px;
   }
 }
 
@@ -785,7 +785,7 @@ button:active {
   .memory-card {
     aspect-ratio: 1 / 1;
     height: auto;
-    max-height: 140px;
+    max-height: 155px;
   }
 }
 
@@ -799,7 +799,7 @@ button:active {
   .memory-card {
     aspect-ratio: 1 / 1;
     height: auto;
-    max-height: 160px;
+    max-height: 180px;
   }
   
   main {
