@@ -7,10 +7,36 @@ import ErrorCard from './components/ErrorCard'
 export default function App() {
     const initialFormData = {category: "animals-and-nature", number: 10}
   
-    const flipSound = useRef(null)
-    const matchSound = useRef(null)
-    const winSound = useRef(null)
-    const errorSound = useRef(null)
+    // Sound functions
+    const playSound = (frequency, duration, type = 'sine') => {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+        const oscillator = audioContext.createOscillator()
+        const gainNode = audioContext.createGain()
+        
+        oscillator.connect(gainNode)
+        gainNode.connect(audioContext.destination)
+        
+        oscillator.frequency.value = frequency
+        oscillator.type = type
+        
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration)
+        
+        oscillator.start(audioContext.currentTime)
+        oscillator.stop(audioContext.currentTime + duration)
+    }
+    
+    const playFlipSound = () => playSound(800, 0.1, 'square')
+    const playMatchSound = () => {
+        playSound(600, 0.2)
+        setTimeout(() => playSound(800, 0.2), 100)
+    }
+    const playErrorSound = () => playSound(300, 0.3, 'sawtooth')
+    const playWinSound = () => {
+        playSound(523, 0.3) // C
+        setTimeout(() => playSound(659, 0.3), 150) // E
+        setTimeout(() => playSound(784, 0.3), 300) // G
+    }
   
     const [isFirstRender, setIsFirstRender] = useState(true)
     const [formData, setFormData] = useState(initialFormData)
@@ -31,14 +57,14 @@ export default function App() {
             if (selectedCards[0].name === selectedCards[1].name) {
                 setMatchedCards(prev => [...prev, ...selectedCards])
                 setFeedback('✨ Perfect Match! ✨')
-                matchSound.current?.play()
+                playMatchSound()
                 setTimeout(() => {
                     setFeedback('')
                     setSelectedCards([])
                 }, 1500)
             } else {
                 setFeedback('❌ Try Again! ❌')
-                errorSound.current?.play()
+                playErrorSound()
                 setTimeout(() => {
                     setFeedback('')
                     setSelectedCards([])
@@ -51,7 +77,7 @@ export default function App() {
         if (emojisData.length && matchedCards.length === emojisData.length) {
             setAreAllCardsMatched(true)
             setEndTime(Date.now())
-            winSound.current?.play()
+            playWinSound()
         }
     }, [matchedCards, emojisData])
   
@@ -126,7 +152,7 @@ export default function App() {
         setSelectedCards(prev => {
             if (prev.length >= 2) return [{name, index}]
             if (prev.some(c => c.index === index)) return prev
-            flipSound.current?.play()
+            playFlipSound()
             return [...prev, {name, index}]
         })
     }
