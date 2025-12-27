@@ -7,8 +7,8 @@ import ErrorCard from './components/ErrorCard'
 export default function App() {
     const initialFormData = {category: "animals-and-nature", number: 10}
   
-    // Sound functions
-    const playSound = (frequency, duration, type = 'sine') => {
+    // Sound functions - Super Mario style!
+    const playSound = (frequency, duration, type = 'sine', volume = 0.3) => {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)()
         const oscillator = audioContext.createOscillator()
         const gainNode = audioContext.createGain()
@@ -19,23 +19,41 @@ export default function App() {
         oscillator.frequency.value = frequency
         oscillator.type = type
         
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime)
+        gainNode.gain.setValueAtTime(volume, audioContext.currentTime)
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration)
         
         oscillator.start(audioContext.currentTime)
         oscillator.stop(audioContext.currentTime + duration)
     }
     
-    const playFlipSound = () => playSound(800, 0.1, 'square')
-    const playMatchSound = () => {
-        playSound(600, 0.2)
-        setTimeout(() => playSound(800, 0.2), 100)
+    const playFlipSound = () => {
+        // Bouncy flip sound like Mario jumping
+        playSound(523, 0.1, 'square', 0.2) // C
+        setTimeout(() => playSound(659, 0.1, 'square', 0.2), 50) // E
     }
-    const playErrorSound = () => playSound(300, 0.3, 'sawtooth')
+    
+    const playMatchSound = () => {
+        // Happy coin collection melody
+        playSound(523, 0.15, 'sine', 0.3) // C
+        setTimeout(() => playSound(659, 0.15, 'sine', 0.3), 80) // E
+        setTimeout(() => playSound(784, 0.15, 'sine', 0.3), 160) // G
+        setTimeout(() => playSound(1047, 0.2, 'sine', 0.4), 240) // C (octave higher)
+    }
+    
+    const playErrorSound = () => {
+        // Sad pipe sound
+        playSound(220, 0.3, 'sawtooth', 0.2) // A (lower)
+        setTimeout(() => playSound(196, 0.3, 'sawtooth', 0.2), 150) // G
+        setTimeout(() => playSound(175, 0.3, 'sawtooth', 0.2), 300) // F
+    }
+    
     const playWinSound = () => {
-        playSound(523, 0.3) // C
-        setTimeout(() => playSound(659, 0.3), 150) // E
-        setTimeout(() => playSound(784, 0.3), 300) // G
+        // Triumphant level complete fanfare
+        playSound(523, 0.2, 'triangle', 0.4) // C
+        setTimeout(() => playSound(659, 0.2, 'triangle', 0.4), 150) // E
+        setTimeout(() => playSound(784, 0.2, 'triangle', 0.4), 300) // G
+        setTimeout(() => playSound(1047, 0.3, 'triangle', 0.5), 450) // C (high)
+        setTimeout(() => playSound(1319, 0.4, 'triangle', 0.6), 600) // E (high)
     }
   
     const [isFirstRender, setIsFirstRender] = useState(true)
