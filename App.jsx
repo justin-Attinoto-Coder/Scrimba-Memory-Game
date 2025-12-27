@@ -5,4 +5,11 @@ export default function App() {
         console.log(`Selected ${event.target.name}: ${event.target.value}`)
     }
 
+    return (
+        <div>
+            <Select handleChange={handleChange} />
+        </div>
+    )
+}
+
    
