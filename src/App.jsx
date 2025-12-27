@@ -28,21 +28,25 @@ export default function App() {
     const playSound = (frequency, duration, type = 'sine', volume = 0.3) => {
         if (!soundEnabled) return // Don't play if sounds are disabled
         
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-        const oscillator = audioContext.createOscillator()
-        const gainNode = audioContext.createGain()
-        
-        oscillator.connect(gainNode)
-        gainNode.connect(audioContext.destination)
-        
-        oscillator.frequency.value = frequency
-        oscillator.type = type
-        
-        gainNode.gain.setValueAtTime(volume, audioContext.currentTime)
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration)
-        
-        oscillator.start(audioContext.currentTime)
-        oscillator.stop(audioContext.currentTime + duration)
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+            const oscillator = audioContext.createOscillator()
+            const gainNode = audioContext.createGain()
+            
+            oscillator.connect(gainNode)
+            gainNode.connect(audioContext.destination)
+            
+            oscillator.frequency.value = frequency
+            oscillator.type = type
+            
+            gainNode.gain.setValueAtTime(volume, audioContext.currentTime)
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration)
+            
+            oscillator.start(audioContext.currentTime)
+            oscillator.stop(audioContext.currentTime + duration)
+        } catch (error) {
+            console.warn('Could not play sound:', error)
+        }
     }
     
     const playFlipSound = () => {
@@ -79,61 +83,70 @@ export default function App() {
     const startBackgroundMusic = () => {
         if (!musicEnabled || musicContext) return // Don't start if disabled or already playing
         
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-        const oscillator = audioContext.createOscillator()
-        const gainNode = audioContext.createGain()
-        
-        oscillator.connect(gainNode)
-        gainNode.connect(audioContext.destination)
-        
-        // Set up a simple chiptune melody
-        oscillator.type = 'square'
-        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime) // Quiet background music
-        
-        // Create a simple melody pattern
-        const melody = [
-            { freq: 523, duration: 0.4 }, // C
-            { freq: 659, duration: 0.4 }, // E
-            { freq: 784, duration: 0.4 }, // G
-            { freq: 659, duration: 0.4 }, // E
-            { freq: 523, duration: 0.4 }, // C
-            { freq: 440, duration: 0.4 }, // A (lower)
-            { freq: 494, duration: 0.4 }, // B
-            { freq: 523, duration: 0.8 }, // C (longer)
-        ]
-        
-        // Calculate total melody duration
-        const melodyDuration = melody.reduce((total, note) => total + note.duration, 0) * 1000 // Convert to milliseconds
-        
-        let currentNoteIndex = 0
-        
-        // Function to play the current note
-        const playCurrentNote = () => {
-            if (currentNoteIndex < melody.length) {
-                const note = melody[currentNoteIndex]
-                oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime)
-                currentNoteIndex++
-            } else {
-                // Reset to beginning of melody
-                currentNoteIndex = 0
-                const note = melody[0]
-                oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime)
+        try {
+            // Stop any existing music first
+            stopBackgroundMusic()
+            
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+            const oscillator = audioContext.createOscillator()
+            const gainNode = audioContext.createGain()
+            
+            oscillator.connect(gainNode)
+            gainNode.connect(audioContext.destination)
+            
+            // Set up a simple chiptune melody
+            oscillator.type = 'square'
+            gainNode.gain.setValueAtTime(0.06, audioContext.currentTime) // Very quiet background music
+            
+            // Create a simple melody pattern
+            const melody = [
+                { freq: 523, duration: 0.4 }, // C
+                { freq: 659, duration: 0.4 }, // E
+                { freq: 784, duration: 0.4 }, // G
+                { freq: 659, duration: 0.4 }, // E
+                { freq: 523, duration: 0.4 }, // C
+                { freq: 440, duration: 0.4 }, // A (lower)
+                { freq: 494, duration: 0.4 }, // B
+                { freq: 523, duration: 0.8 }, // C (longer)
+            ]
+            
+            let currentNoteIndex = 0
+            
+            // Function to play the current note
+            const playCurrentNote = () => {
+                try {
+                    if (currentNoteIndex < melody.length) {
+                        const note = melody[currentNoteIndex]
+                        oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime)
+                        currentNoteIndex++
+                    } else {
+                        // Reset to beginning of melody
+                        currentNoteIndex = 0
+                        const note = melody[0]
+                        oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime)
+                    }
+                } catch (error) {
+                    // Audio context might be closed, stop the music
+                    stopBackgroundMusic()
+                }
             }
-        }
-        
-        // Start playing the first note
-        playCurrentNote()
-        
-        // Set up interval to change notes
-        const interval = setInterval(() => {
+            
+            // Start playing the first note
             playCurrentNote()
-        }, 400) // Change note every 400ms to match the melody timing
-        
-        setMusicContext(audioContext)
-        setMusicOscillator(oscillator)
-        setMusicInterval(interval)
-        
-        oscillator.start(audioContext.currentTime)
+            
+            // Set up interval to change notes
+            const interval = setInterval(() => {
+                playCurrentNote()
+            }, 400) // Change note every 400ms
+            
+            setMusicContext(audioContext)
+            setMusicOscillator(oscillator)
+            setMusicInterval(interval)
+            
+            oscillator.start(audioContext.currentTime)
+        } catch (error) {
+            console.warn('Could not start background music:', error)
+        }
     }
     
     const stopBackgroundMusic = () => {

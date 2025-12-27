@@ -14,9 +14,9 @@ export default function MemoryCard({ handleClick, data, selectedCards, matchedCa
         }
         
         // Debug on first flipped card
-        if (index === 0 && isFlipped) {
-            console.log('Card 0 is flipped, emoji:', emojiChar)
-        }
+        // if (index === 0 && isFlipped) {
+        //     console.log('Card 0 is flipped, emoji:', emojiChar)
+        // }
         
         return (
             <button
