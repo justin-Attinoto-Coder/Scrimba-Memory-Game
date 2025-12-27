@@ -141,61 +141,6 @@ form > div {
   margin-bottom: clamp(1rem, 3vw, 1.5rem);
 }
 
-/* Sound Toggle Styling */
-.sound-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  border: 2px solid rgba(255, 105, 180, 0.6);
-}
-
-.sound-label {
-  font-weight: 700 !important;
-  font-size: clamp(0.9rem, 2.5vw, 1.1rem) !important;
-  color: #2d3748 !important;
-  margin-bottom: 0 !important;
-  flex: 1;
-}
-
-.sound-button {
-  padding: 0.5rem 1rem;
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  font-weight: bold;
-  border: 2px solid #ff6b9d;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  min-width: 80px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.sound-button.sound-on {
-  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
-  color: white;
-  border-color: #4ecdc4;
-  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
-}
-
-.sound-button.sound-off {
-  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
-  color: white;
-  border-color: #95a5a6;
-  box-shadow: 0 4px 15px rgba(149, 165, 166, 0.4);
-}
-
-.sound-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-
-.sound-button:active {
-  transform: scale(0.95);
-}
-
 label {
   font-weight: 700;
   font-size: clamp(1rem, 3vw, 1.2rem);

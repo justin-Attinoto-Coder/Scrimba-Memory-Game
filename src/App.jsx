@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Form from './components/Form'
 import MemoryCard from './components/MemoryCard'
 import GameOver from './components/GameOver'
@@ -94,14 +94,12 @@ export default function App() {
             if (selectedCards[0].name === selectedCards[1].name) {
                 setMatchedCards(prev => [...prev, ...selectedCards])
                 setFeedback('✨ Perfect Match! ✨')
-                playMatchSound()
                 setTimeout(() => {
                     setFeedback('')
                     setSelectedCards([])
                 }, 1500)
             } else {
                 setFeedback('❌ Try Again! ❌')
-                playErrorSound()
                 setTimeout(() => {
                     setFeedback('')
                     setSelectedCards([])
@@ -114,7 +112,6 @@ export default function App() {
         if (emojisData.length && matchedCards.length === emojisData.length) {
             setAreAllCardsMatched(true)
             setEndTime(Date.now())
-            playWinSound()
         }
     }, [matchedCards, emojisData])
   
@@ -189,7 +186,6 @@ export default function App() {
         setSelectedCards(prev => {
             if (prev.length >= 2) return [{name, index}]
             if (prev.some(c => c.index === index)) return prev
-            playFlipSound()
             return [...prev, {name, index}]
         })
     }
@@ -217,8 +213,6 @@ export default function App() {
                     handleChange={handleFormChange}
                     isFirstRender={isFirstRender}
                     isHidden={isGameOn}
-                    soundEnabled={soundEnabled}
-                    toggleSound={toggleSound}
                 />
             }
             {isGameOn && !areAllCardsMatched && 
