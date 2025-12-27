@@ -189,6 +189,7 @@ export default function App() {
             setAreAllCardsMatched(true)
             setEndTime(Date.now())
             playWinSound()
+            stopBackgroundMusic()
         }
     }, [matchedCards, emojisData])
   
@@ -277,6 +278,7 @@ export default function App() {
         setMoves(0)
         setStartTime(null)
         setEndTime(null)
+        stopBackgroundMusic()
     }
   
     function resetError() {
@@ -294,6 +296,8 @@ export default function App() {
                     isHidden={isGameOn}
                     soundEnabled={soundEnabled}
                     toggleSound={toggleSound}
+                    musicEnabled={musicEnabled}
+                    toggleMusic={toggleMusic}
                 />
             }
             {isGameOn && !areAllCardsMatched && 

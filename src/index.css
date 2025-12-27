@@ -187,6 +187,20 @@ form > div {
   box-shadow: 0 4px 15px rgba(149, 165, 166, 0.4);
 }
 
+.sound-button.music-on {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  border-color: #f093fb;
+  box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+}
+
+.sound-button.music-off {
+  background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+  color: white;
+  border-color: #95a5a6;
+  box-shadow: 0 4px 15px rgba(149, 165, 166, 0.4);
+}
+
 .sound-button:hover {
   transform: scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
