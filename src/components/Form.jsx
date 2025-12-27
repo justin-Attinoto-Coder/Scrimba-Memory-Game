@@ -1,4 +1,4 @@
-export default function Form({ handleSubmit, handleChange, isFirstRender, isHidden, soundEnabled, toggleSound, musicEnabled, toggleMusic }) {
+export default function Form({ handleSubmit, handleChange, isFirstRender, isHidden, soundEnabled, toggleSound }) {
     return (
         <form onSubmit={handleSubmit} className={isHidden ? 'hidden' : ''}>
             <div>
@@ -48,20 +48,6 @@ export default function Form({ handleSubmit, handleChange, isFirstRender, isHidd
                     aria-label={soundEnabled ? 'Disable sound effects' : 'Enable sound effects'}
                 >
                     {soundEnabled ? '🔊 ON' : '🔇 OFF'}
-                </button>
-            </div>
-            <div className="sound-toggle">
-                <label htmlFor="music-toggle" className="sound-label">
-                    🎵 Background Music: 
-                </label>
-                <button 
-                    type="button"
-                    id="music-toggle"
-                    onClick={toggleMusic}
-                    className={`sound-button ${musicEnabled ? 'music-on' : 'music-off'}`}
-                    aria-label={musicEnabled ? 'Disable background music' : 'Enable background music'}
-                >
-                    {musicEnabled ? '🎵 ON' : '🎵 OFF'}
                 </button>
             </div>
             <button type="submit">

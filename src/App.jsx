@@ -13,17 +13,6 @@ export default function App() {
         return saved !== null ? JSON.parse(saved) : true // Default to true
     })
     
-    // Load music preference from localStorage
-    const [musicEnabled, setMusicEnabled] = useState(() => {
-        const saved = localStorage.getItem('memoryGame_musicEnabled')
-        return saved !== null ? JSON.parse(saved) : true // Default to true
-    })
-    
-    // Music state
-    const [musicContext, setMusicContext] = useState(null)
-    const [musicOscillator, setMusicOscillator] = useState(null)
-    const [musicInterval, setMusicInterval] = useState(null)
-    
     // Sound functions - Super Mario style!
     const playSound = (frequency, duration, type = 'sine', volume = 0.3) => {
         if (!soundEnabled) return // Don't play if sounds are disabled
@@ -79,108 +68,11 @@ export default function App() {
         setTimeout(() => playSound(1319, 0.4, 'triangle', 0.6), 600) // E (high)
     }
     
-    // Background music functions
-    const startBackgroundMusic = () => {
-        if (!musicEnabled || musicContext) return // Don't start if disabled or already playing
-        
-        try {
-            // Stop any existing music first
-            stopBackgroundMusic()
-            
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)()
-            const oscillator = audioContext.createOscillator()
-            const gainNode = audioContext.createGain()
-            
-            oscillator.connect(gainNode)
-            gainNode.connect(audioContext.destination)
-            
-            // Set up a simple chiptune melody
-            oscillator.type = 'square'
-            gainNode.gain.setValueAtTime(0.06, audioContext.currentTime) // Very quiet background music
-            
-            // Create a simple melody pattern
-            const melody = [
-                { freq: 523, duration: 0.4 }, // C
-                { freq: 659, duration: 0.4 }, // E
-                { freq: 784, duration: 0.4 }, // G
-                { freq: 659, duration: 0.4 }, // E
-                { freq: 523, duration: 0.4 }, // C
-                { freq: 440, duration: 0.4 }, // A (lower)
-                { freq: 494, duration: 0.4 }, // B
-                { freq: 523, duration: 0.8 }, // C (longer)
-            ]
-            
-            let currentNoteIndex = 0
-            
-            // Function to play the current note
-            const playCurrentNote = () => {
-                try {
-                    if (currentNoteIndex < melody.length) {
-                        const note = melody[currentNoteIndex]
-                        oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime)
-                        currentNoteIndex++
-                    } else {
-                        // Reset to beginning of melody
-                        currentNoteIndex = 0
-                        const note = melody[0]
-                        oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime)
-                    }
-                } catch (error) {
-                    // Audio context might be closed, stop the music
-                    stopBackgroundMusic()
-                }
-            }
-            
-            // Start playing the first note
-            playCurrentNote()
-            
-            // Set up interval to change notes
-            const interval = setInterval(() => {
-                playCurrentNote()
-            }, 400) // Change note every 400ms
-            
-            setMusicContext(audioContext)
-            setMusicOscillator(oscillator)
-            setMusicInterval(interval)
-            
-            oscillator.start(audioContext.currentTime)
-        } catch (error) {
-            console.warn('Could not start background music:', error)
-        }
-    }
-    
-    const stopBackgroundMusic = () => {
-        if (musicInterval) {
-            clearInterval(musicInterval)
-            setMusicInterval(null)
-        }
-        if (musicOscillator) {
-            musicOscillator.stop()
-            setMusicOscillator(null)
-        }
-        if (musicContext) {
-            musicContext.close()
-            setMusicContext(null)
-        }
-    }
-    
     // Toggle functions
     const toggleSound = () => {
         const newSoundEnabled = !soundEnabled
         setSoundEnabled(newSoundEnabled)
         localStorage.setItem('memoryGame_soundEnabled', JSON.stringify(newSoundEnabled))
-    }
-    
-    const toggleMusic = () => {
-        const newMusicEnabled = !musicEnabled
-        setMusicEnabled(newMusicEnabled)
-        localStorage.setItem('memoryGame_musicEnabled', JSON.stringify(newMusicEnabled))
-        
-        if (!newMusicEnabled) {
-            stopBackgroundMusic()
-        } else if (isGameOn) {
-            startBackgroundMusic()
-        }
     }
   
     const [isFirstRender, setIsFirstRender] = useState(true)
@@ -223,7 +115,6 @@ export default function App() {
             setAreAllCardsMatched(true)
             setEndTime(Date.now())
             playWinSound()
-            stopBackgroundMusic()
         }
     }, [matchedCards, emojisData])
   
@@ -250,7 +141,6 @@ export default function App() {
             setMoves(0)
             setStartTime(Date.now())
             setEndTime(null)
-            startBackgroundMusic()
         } catch(err) {
             console.error(err)
             setIsError(true)
@@ -312,7 +202,6 @@ export default function App() {
         setMoves(0)
         setStartTime(null)
         setEndTime(null)
-        stopBackgroundMusic()
     }
   
     function resetError() {
@@ -330,8 +219,6 @@ export default function App() {
                     isHidden={isGameOn}
                     soundEnabled={soundEnabled}
                     toggleSound={toggleSound}
-                    musicEnabled={musicEnabled}
-                    toggleMusic={toggleMusic}
                 />
             }
             {isGameOn && !areAllCardsMatched && 
