@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Form from './components/Form'
 import MemoryCard from './components/MemoryCard'
 import GameOver from './components/GameOver'
@@ -6,6 +6,11 @@ import ErrorCard from './components/ErrorCard'
 
 export default function App() {
     const initialFormData = {category: "animals-and-nature", number: 10}
+  
+    const flipSound = useRef(null)
+    const matchSound = useRef(null)
+    const winSound = useRef(null)
+    const errorSound = useRef(null)
   
     const [isFirstRender, setIsFirstRender] = useState(true)
     const [formData, setFormData] = useState(initialFormData)
@@ -26,12 +31,14 @@ export default function App() {
             if (selectedCards[0].name === selectedCards[1].name) {
                 setMatchedCards(prev => [...prev, ...selectedCards])
                 setFeedback('✨ Perfect Match! ✨')
+                matchSound.current?.play()
                 setTimeout(() => {
                     setFeedback('')
                     setSelectedCards([])
                 }, 1500)
             } else {
                 setFeedback('❌ Try Again! ❌')
+                errorSound.current?.play()
                 setTimeout(() => {
                     setFeedback('')
                     setSelectedCards([])
@@ -44,6 +51,7 @@ export default function App() {
         if (emojisData.length && matchedCards.length === emojisData.length) {
             setAreAllCardsMatched(true)
             setEndTime(Date.now())
+            winSound.current?.play()
         }
     }, [matchedCards, emojisData])
   
@@ -118,6 +126,7 @@ export default function App() {
         setSelectedCards(prev => {
             if (prev.length >= 2) return [{name, index}]
             if (prev.some(c => c.index === index)) return prev
+            flipSound.current?.play()
             return [...prev, {name, index}]
         })
     }

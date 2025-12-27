@@ -1,0 +1,26 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ocean -->
+  <rect width="1200" height="600" fill="#4A90E2"/>
+  
+  <!-- Continents (simplified) -->
+  <!-- North America -->
+  <path d="M100,150 L200,100 L300,120 L350,200 L320,300 L250,350 L150,320 L100,250 Z" fill="#8BC34A" stroke="#4CAF50" stroke-width="2"/>
+  
+  <!-- South America -->
+  <path d="M300,350 L350,400 L320,500 L280,550 L250,500 L270,400 Z" fill="#8BC34A" stroke="#4CAF50" stroke-width="2"/>
+  
+  <!-- Europe -->
+  <path d="M500,150 L600,120 L650,140 L620,200 L550,220 L500,190 Z" fill="#FFC107" stroke="#FF9800" stroke-width="2"/>
+  
+  <!-- Africa -->
+  <path d="M550,250 L650,220 L700,300 L680,450 L600,480 L550,400 Z" fill="#FF5722" stroke="#F44336" stroke-width="2"/>
+  
+  <!-- Asia -->
+  <path d="M700,100 L900,80 L1000,120 L950,200 L850,250 L750,220 L700,150 Z" fill="#9C27B0" stroke="#673AB7" stroke-width="2"/>
+  
+  <!-- Australia -->
+  <path d="M850,400 L950,380 L1000,420 L980,480 L900,500 L850,450 Z" fill="#00BCD4" stroke="#0097A7" stroke-width="2"/>
+  
+  <!-- Antarctica -->
+  <rect x="0" y="550" width="1200" height="50" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="2"/>
+</svg>

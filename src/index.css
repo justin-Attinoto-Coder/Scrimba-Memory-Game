@@ -77,6 +77,10 @@ main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background: url('/world-map.svg') no-repeat center center;
+  background-size: cover;
+  border-radius: 20px;
+  box-shadow: 0 0 50px rgba(0,0,0,0.3);
 }
 
 h1 {
@@ -313,18 +317,21 @@ button:active {
   justify-content: center;
   border-radius: clamp(12px, 3vw, 20px);
   font-size: clamp(1.2rem, 4vw, 2rem);
-  border: 4px solid transparent;
+  border: 4px solid rgba(255,255,255,0.2);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.1);
 }
 
 .card-front {
-  background: linear-gradient(135deg, #ff6b9d 0%, #eb4d4b 100%); /* Red-pink */
-  color: #ffffff; /* White text */
+  background: rgba(255,255,255,0.2);
+  color: #ffffff;
   font-weight: bold;
   font-size: clamp(1.5rem, 4vw, 2.5rem);
   animation: cardPulse 2s ease-in-out infinite;
   position: relative;
   overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.3);
 }
 
 .card-front::before {
@@ -356,9 +363,9 @@ button:active {
 }
 
 .card-back {
-  background: linear-gradient(135deg, #f9ca24 0%, #f0932b 100%); /* Yellow-orange */
+  background: rgba(255,255,255,0.1);
   transform: rotateY(180deg);
-  border: 4px solid #eb4d4b; /* Red border */
+  border: 2px solid rgba(255,255,255,0.3);
   animation: matchGlow 0.6s ease-in-out;
   display: flex;
   align-items: center;
@@ -391,8 +398,8 @@ button:active {
 
 /* Matched cards special effect */
 .memory-card:disabled.flipped .card-back {
-  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); /* Teal-green */
-  border-color: #2d3748; /* Dark border */
+  background: rgba(76, 237, 196, 0.3);
+  border-color: rgba(255,255,255,0.5);
   animation: matchedPulse 1s ease-in-out infinite;
   will-change: transform;
 }
