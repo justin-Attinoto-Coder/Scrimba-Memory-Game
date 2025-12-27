@@ -28,6 +28,9 @@ export default function App() {
     const playSound = (frequency, duration, type = 'sine', volume = 0.3) => {
         if (!soundEnabled) return // Don't play if sounds are disabled
         
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)()
+        const oscillator = audioContext.createOscillator()
+        const gainNode = audioContext.createGain()
         
         oscillator.connect(gainNode)
         gainNode.connect(audioContext.destination)
