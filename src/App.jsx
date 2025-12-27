@@ -22,6 +22,7 @@ export default function App() {
     // Music state
     const [musicContext, setMusicContext] = useState(null)
     const [musicOscillator, setMusicOscillator] = useState(null)
+    const [musicInterval, setMusicInterval] = useState(null)
     
     // Sound functions - Super Mario style!
     const playSound = (frequency, duration, type = 'sine', volume = 0.3) => {
@@ -98,28 +99,45 @@ export default function App() {
             { freq: 523, duration: 0.8 }, // C (longer)
         ]
         
-        let currentTime = audioContext.currentTime
+        // Calculate total melody duration
+        const melodyDuration = melody.reduce((total, note) => total + note.duration, 0) * 1000 // Convert to milliseconds
         
-        // Play the melody once, then loop
-        const playMelody = () => {
-            melody.forEach(note => {
-                oscillator.frequency.setValueAtTime(note.freq, currentTime)
-                currentTime += note.duration
-            })
+        let currentNoteIndex = 0
+        
+        // Function to play the current note
+        const playCurrentNote = () => {
+            if (currentNoteIndex < melody.length) {
+                const note = melody[currentNoteIndex]
+                oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime)
+                currentNoteIndex++
+            } else {
+                // Reset to beginning of melody
+                currentNoteIndex = 0
+                const note = melody[0]
+                oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime)
+            }
         }
         
-        playMelody()
+        // Start playing the first note
+        playCurrentNote()
         
-        // Set up looping
-        oscillator.frequency.setValueAtTime(523, currentTime) // Reset to C
+        // Set up interval to change notes
+        const interval = setInterval(() => {
+            playCurrentNote()
+        }, 400) // Change note every 400ms to match the melody timing
         
         setMusicContext(audioContext)
         setMusicOscillator(oscillator)
+        setMusicInterval(interval)
         
         oscillator.start(audioContext.currentTime)
     }
     
     const stopBackgroundMusic = () => {
+        if (musicInterval) {
+            clearInterval(musicInterval)
+            setMusicInterval(null)
+        }
         if (musicOscillator) {
             musicOscillator.stop()
             setMusicOscillator(null)
